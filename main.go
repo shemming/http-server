@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	"github.com/shemming/singularity6/proxy"
+	"github.com/shemming/http-server/proxy"
 )
 
 func main() {

@@ -1,4 +1,4 @@
-module github.com/shemming/singularity6
+module github.com/shemming/http-server
 
 go 1.17
 
