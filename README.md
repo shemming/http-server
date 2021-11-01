@@ -1,1 +1,3 @@
-# singularity6
+# Welcome
+
+Project to make a small HTTP server
