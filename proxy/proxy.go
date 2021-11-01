@@ -22,7 +22,7 @@ type Test struct {
 	Test2 string `json:"Test2"`
 }
 
-func HelloWorld(w http.ResponseWriter, r *http.Request) {
+func (p *Proxy) HelloWorld(w http.ResponseWriter, r *http.Request) {
 	_ = mux.Vars(r)
 	ctx := r.Context()
 
