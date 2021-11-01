@@ -4,10 +4,12 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 
 	"github.com/gorilla/mux"
 	"github.com/shemming/http-server/proxy"
@@ -16,6 +18,9 @@ import (
 func main() {
 	ctx := context.Background()
 	done := make(chan os.Signal, 1)
+
+	// seed random to get different strings at each launch of service
+	rand.Seed(time.Now().UnixNano())
 
 	signal.Notify(done,
 		os.Interrupt,
@@ -36,15 +41,14 @@ func main() {
 }
 
 func startHTTPServer(ctx context.Context) *http.Server {
-	address := "127.0.0.1:9000"
-	proxy := proxy.NewProxy()
+	address := "127.0.0.1:4000"
 
 	r := mux.NewRouter()
-	r.Handle("/", http.HandlerFunc(proxy.HelloWorld)).Methods(http.MethodPost)
+	proxy := proxy.NewProxy(r)
 
 	log.Printf("Starting http server...")
 	server := &http.Server{
-		Handler: r,
+		Handler: proxy.Router,
 		Addr:    address,
 	}
 

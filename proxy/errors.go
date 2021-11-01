@@ -15,7 +15,7 @@ type httpError struct {
 	StatusText string
 }
 
-func writeHTTPError(ctx context.Context, w http.ResponseWriter, err error) {
+func writeJsonHttpError(ctx context.Context, w http.ResponseWriter, err error) {
 	code := status.Code(err)
 	httpCode := getHTTPStatus(code)
 
@@ -37,6 +37,7 @@ func writeHTTPError(ctx context.Context, w http.ResponseWriter, err error) {
 	return
 }
 
+// this can be expanded to map grpc codes to http codes
 func getHTTPStatus(code codes.Code) int {
 	switch code {
 	case codes.OK:
